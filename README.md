@@ -7,5 +7,5 @@ For details see http://forum.amperka.ru/threads/%D0%A3%D0%BF%D1%80%D0%B0%D0%B2%D
 
 Folder structure
 ---------------------
-* LearnIRCode - sketch file inside
+* LearnIRCode - sketch file inside, doc comments inside
 * Libraries - external libraries
