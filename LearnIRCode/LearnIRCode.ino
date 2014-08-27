@@ -50,7 +50,7 @@ Install:
 /*
   Пин, к которому подключен ИК приёмник. 
   У ИК приёмника один информационный выход, подключается напрямую к этому пину. Ещё у ИК приёмника обычно есть
-  два контакта - Vcc и Ground. Они соответственно подключаются к питанию.
+  два контакта - Vcc и Ground. Они соответственно подключаются к питанию и земле.
   Используется ИК приёмник TSOP22 на 38 кГц.
 */
 #define RECV_PIN 8
@@ -91,19 +91,18 @@ long irCodeData = 0;
 // объект приёмника ИК-команд
 IRrecv irrecv(RECV_PIN);
 // объект декодированных результатов из приёмника ИК-команд
-decode_results results;
+decode_results irresult;
 
 // Стандартная процедура первоначальной настройки Arduino при запуске
-void setup()
-{
+void setup() {
   #if DEBUG
   Serial.begin(9600);
   #endif
   
-  irrecv.enableIRIn(); // Запуск приёмника
   pinMode(LEARN_LED_PIN, OUTPUT);
   pinMode(WORK_LED_PIN, OUTPUT);
   irCodeData = loadFromEeprom(IR_CODE_DATA_ADDRESS); // Загрузка кода команды пульта из постоянной памяти
+  irrecv.enableIRIn(); // Запуск приёмника
 }
 
 // Основаная процедура цикла работы Arduino
@@ -116,8 +115,8 @@ void loop() {
 
 // Процедура обработки нажатий на ИК-пульте
 void processIr() {
-  if (irrecv.decode(&results)) { // Если распознана команда с пульта
-    long value = results.value;
+  if (irrecv.decode(&irresult)) { // Если распознана команда с пульта
+    long value = irresult.value;
 
     #if DEBUG
     Serial.print("Raw: ");
@@ -125,7 +124,7 @@ void processIr() {
     #endif  
 
     if (0xFFFFFFFF != value) { // Если пришла команда 0xFFFFFFFF, то её нужно игнорировать
-      if (results.decode_type == RC6) { // Если протокол пульта RC6 (и возможно RC5), то нужно избавиться от toggle бита (0x8000)
+      if (irresult.decode_type == RC6) { // Если протокол пульта RC6 (и возможно RC5), то нужно избавиться от toggle бита (0x8000)
         value &= ~0x8000LL;
       }
       processCode(value);
@@ -139,7 +138,7 @@ void processIr() {
   Функция возвращает состояние кнопки, с программной защитой от дребезга контактов.
  
   @param int pin - Номер пина, к которому подключена кнопка.
-  @param boolean pullUp - Подтянута ли кнопка к Vcc, или к земле.
+  @param boolean pullUp - Подтянута ли кнопка к Vcc или к земле.
     true = кнопка подтянута к Vcc
     false = кнопка подтянута к земле
   @return int - Состояние кнопки, нажата или нет.
