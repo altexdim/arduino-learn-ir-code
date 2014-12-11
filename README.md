@@ -1,13 +1,21 @@
 arduino-learn-ir-code
 =====================
 
-Arduino sketch for managing LED with IR remote, with learn function.
+Пример программы для управления светодиодом с ИК-пульта.
+https://github.com/altexdim/arduino-learn-ir-code
 
-For details see http://forum.amperka.ru/threads/%D0%A3%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%B2%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D0%BE%D0%B4%D0%BE%D0%BC-%D1%81-%D0%98%D0%9A-%D0%BF%D1%83%D0%BB%D1%8C%D1%82%D0%B0-%D0%95%D1%81%D1%82%D1%8C-%D1%80%D0%B5%D0%B6%D0%B8%D0%BC-%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B0%D0%BC.3376/
+Коды команд кнопок пульта сохраняются в памяти Arduino после сброса.
+Для обучения устройства новой команде (кнопке пульта) используется
+тактовая кнопка на Arduino.
 
+Описание работы в комментарии к скетчу.
 
-Folder structure
+Схема не прилагается, так как тривиальна.
+Фотография устройства в сборе на макетной плате 
+![Проект в собранном виде](/LearnIRCode/LearnIRCode_BreadBoard.png?raw=true "Проект в собранном виде")
+
+Струтура папок
 ---------------------
 
-* LearnIRCode - sketch file inside, doc comments inside
-* Libraries - external libraries
+* LearnIRCode - скетч с подробной документацией в виде комментариев по коду
+* Libraries - внешние библиотеки, нужные для работы скетча
